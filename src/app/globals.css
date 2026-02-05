@@ -1,0 +1,140 @@
+:root {
+  color-scheme: light;
+  --bg: #f5f1e8;
+  --panel: #fffaf0;
+  --ink: #2c261c;
+  --accent: #3e7b4d;
+  --food: #c7442e;
+  --grid: #d9d0bf;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  background: radial-gradient(1200px 600px at 50% 0%, #fff7e6, var(--bg));
+  color: var(--ink);
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.game {
+  width: min(720px, 100%);
+  background: var(--panel);
+  border: 2px solid var(--ink);
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.score {
+  font-size: 16px;
+}
+
+.board {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  background: #fffdf7;
+  border: 2px solid var(--ink);
+  display: grid;
+  gap: 1px;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+}
+
+.cell {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.snake {
+  background: var(--accent);
+}
+
+.snake-head {
+  background: #2a5c3a;
+}
+
+.food {
+  background: var(--food);
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 12px;
+  border: 2px solid var(--ink);
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: min(240px, 100%);
+  margin-left: auto;
+}
+
+.controls button {
+  padding: 10px 0;
+}
+
+.control-spacer {
+  visibility: hidden;
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controls {
+    margin-left: 0;
+  }
+
+  .status {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
