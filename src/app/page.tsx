@@ -11,7 +11,8 @@ import {
 } from "../lib/snake";
 
 const TICK_MS = 140;
-const GRID_SIZE = 16;
+const GRID_SIZES = [12, 16, 20, 24] as const;
+type GridSize = (typeof GRID_SIZES)[number];
 
 const KEY_TO_DIR: Record<string, Direction> = {
   ArrowUp: "up",
@@ -29,8 +30,9 @@ const KEY_TO_DIR: Record<string, Direction> = {
 };
 
 export default function Home() {
+  const [gridSize, setGridSize] = useState<GridSize>(16);
   const [state, setState] = useState<GameState>(() =>
-    createInitialState(GRID_SIZE)
+    createInitialState(gridSize)
   );
   const intervalRef = useRef<number | null>(null);
 
@@ -93,8 +95,13 @@ export default function Home() {
     return result;
   }, [state.gridSize, state.food.x, state.food.y, snakeSet, headKey]);
 
-  const reset = () => {
-    setState(createInitialState(GRID_SIZE));
+  const reset = useCallback(() => {
+    setState(createInitialState(gridSize));
+  }, [gridSize]);
+
+  const handleGridChange = (value: GridSize) => {
+    setGridSize(value);
+    setState(createInitialState(value));
   };
 
   const handleControl = (dir: Direction) => {
@@ -107,6 +114,21 @@ export default function Home() {
         <div className="header">
           <div className="title">Snake</div>
           <div className="score">Score: {state.score}</div>
+          <label className="size-select">
+            <span>Grid</span>
+            <select
+              value={gridSize}
+              onChange={(event) =>
+                handleGridChange(Number(event.target.value) as GridSize)
+              }
+            >
+              {GRID_SIZES.map((size) => (
+                <option key={size} value={size}>
+                  {size} x {size}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
 
         <div

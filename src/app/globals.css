@@ -42,6 +42,7 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .title {
@@ -105,6 +106,22 @@ button {
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.size-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.size-select select {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 6px 8px;
+  border: 2px solid var(--ink);
+  background: var(--panel);
+  color: var(--ink);
 }
 
 .controls {
